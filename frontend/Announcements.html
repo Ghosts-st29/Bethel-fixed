@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - Student Board</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="Stylesheet/authUser.css">
+    <link rel="stylesheet" href="Stylesheet/Announcements.css">
+</head>
+<body>
+    <header class="header" id="header">
+         <!-- Replace this in your logo -->
+        <a href="#" class="logo">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <!-- Instead of: <i class="fas fa-graduation-cap"></i> -->
+            <span>Information Technology</span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="Announcements.html" class="active">Announcements</a>
+            <a href="Events.html">Events</a>
+            <a href="Archives.html">Archives</a>
+            <div class="auth-buttons">
+                <a href="login.html" class="auth-btn secondary">Login</a>
+                <a href="signup.html" class="auth-btn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="announcements-hero">
+        <div class="hero-content">
+            <h1>Important Announcements</h1>
+            <p>Stay updated with the latest news, deadlines, and important information from your institution.</p>
+        </div>
+    </section>
+
+    <section class="announcements-container">
+        <div class="announcements-filters">
+            <div class="filter-group">
+                <label for="category-filter">Filter by:</label>
+                <select id="category-filter">
+                    <option value="all">All Announcements</option>
+                    <option value="academic">Academic</option>
+                    <option value="events">Events</option>
+                    <option value="deadlines">Deadlines</option>
+                    <option value="general">General</option>
+                </select>
+            </div>
+
+
+            <div class="search-box">
+                <input type="text" placeholder="Search announcements...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+        
+            <section class="admin-actions-section" id="announcements-admin-section" style="display: none;">
+    <div class="container">
+        <div class="admin-actions">
+            <h3>Announcement Management</h3>
+            <button onclick="showCreateAnnouncementModal()" class="auth-btn">
+                <i class="fas fa-bullhorn"></i> Add New Announcement
+            </button>
+        </div>
+    </div>
+</section>
+
+<div class="modal" id="createAnnouncementModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create New Announcement</h2>
+            <button class="close-modal" onclick="closeModal('createAnnouncementModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="create-announcement-form">
+                <div class="form-group">
+                    <label for="announcement-title">Title</label>
+                    <input type="text" id="announcement-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="announcement-content">Content</label>
+                    <textarea id="announcement-content" name="content" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="announcement-category">Category</label>
+                    <select id="announcement-category" name="category" required>
+                        <option value="academic">Academic</option>
+                        <option value="events">Events</option>
+                        <option value="deadlines">Deadlines</option>
+                        <option value="general">General</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="announcement-important" name="isImportant">
+                        <span class="checkmark"></span>
+                        Mark as Important
+                    </label>
+                </div>
+                <button type="submit" class="auth-btn">Create Announcement</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+        <div class="announcements-list">
+            <div class="announcement-card important">
+                <div class="announcement-header">
+                    <span class="badge important-badge">Important</span>
+                    <span class="date">October 15, 2023</span>
+                </div>
+                <h3 class="announcement-title">Midterm Examination Schedule Released</h3>
+                <p class="announcement-excerpt">The schedule for midterm examinations has been published. Please check your student portal for your personalized exam timetable and room assignments.</p>
+                <div class="announcement-footer">
+                    <span class="category academic">Academic</span>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="announcement-card">
+                <div class="announcement-header">
+                    <span class="date">October 12, 2023</span>
+                </div>
+                <h3 class="announcement-title">Campus Career Fair - November 5th</h3>
+                <p class="announcement-excerpt">The annual campus career fair will be held on November 5th from 9 AM to 4 PM at the University Center. Over 100 companies will be recruiting for internships and full-time positions.</p>
+                <div class="announcement-footer">
+                    <span class="category events">Events</span>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="announcement-card">
+                <div class="announcement-header">
+                    <span class="date">October 10, 2023</span>
+                </div>
+                <h3 class="announcement-title">Library Extended Hours During Exams</h3>
+                <p class="announcement-excerpt">The main library will have extended opening hours during the examination period. From October 20th to November 10th, the library will be open until 2 AM.</p>
+                <div class="announcement-footer">
+                    <span class="category academic">Academic</span>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="announcement-card">
+                <div class="announcement-header">
+                    <span class="date">October 8, 2023</span>
+                </div>
+                <h3 class="announcement-title">Tuition Fee Payment Deadline Extension</h3>
+                <p class="announcement-excerpt">The deadline for tuition fee payment has been extended to October 25th due to technical issues with the payment portal. Late fees will be waived during this period.</p>
+                <div class="announcement-footer">
+                    <span class="category deadlines">Deadlines</span>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="announcement-card">
+                <div class="announcement-header">
+                    <span class="date">October 5, 2023</span>
+                </div>
+                <h3 class="announcement-title">New Online Learning Resources Available</h3>
+                <p class="announcement-excerpt">The university has partnered with several online learning platforms to provide free access to premium courses for all enrolled students. Check the resources section for more details.</p>
+                <div class="announcement-footer">
+                    <span class="category academic">Academic</span>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="announcement-card">
+                <div class="announcement-header">
+                    <span class="date">October 3, 2023</span>
+                </div>
+                <h3 class="announcement-title">Campus Maintenance Notice</h3>
+                <p class="announcement-excerpt">Scheduled maintenance will occur on October 10th from 10 PM to 2 AM. During this time, some online services may be temporarily unavailable.</p>
+                <div class="announcement-footer">
+                    <span class="category general">General</span>
+                    <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn next">Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Student Board</h3>
+                <p>The intelligent academic management platform designed to help students excel in their educational journey.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Features</h3>
+                <ul>
+                    <li><a href="#">GPA Tracking</a></li>
+                    <li><a href="#">Course Management</a></li>
+                    <li><a href="#">Assignment Planner</a></li>
+                    <li><a href="#">Smart Calendar</a></li>
+                    <li><a href="#">Progress Analytics</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Webinars</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Support Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Student Board. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Add this to ALL pages -->
+<script src="Scripts/auth.js"></script>
+
+<!-- Admin Modals -->
+<div class="modal" id="createEventModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create New Event</h2>
+            <button class="close-modal" onclick="closeModal('createEventModal')">&times;</button>
+        </div>
+        <form id="create-event-form">
+            <div class="form-group">
+                <label for="event-title">Event Title</label>
+                <input type="text" id="event-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="event-description">Description</label>
+                <textarea id="event-description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="event-category">Category</label>
+                <select id="event-category" name="category" required>
+                    <option value="academic">Academic</option>
+                    <option value="career">Career</option>
+                    <option value="social">Social</option>
+                    <option value="sports">Sports</option>
+                    <option value="workshops">Workshops</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="event-date">Date</label>
+                <input type="date" id="event-date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="event-time">Time</label>
+                <input type="time" id="event-time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label for="event-location">Location</label>
+                <input type="text" id="event-location" name="location" required>
+            </div>
+            <div class="form-group">
+                <label for="event-spots">Spots Available (0 for unlimited)</label>
+                <input type="number" id="event-spots" name="spotsAvailable" value="0" min="0">
+            </div>
+            <button type="submit" class="auth-btn">Create Event</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="createAnnouncementModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create New Announcement</h2>
+            <button class="close-modal" onclick="closeModal('createAnnouncementModal')">&times;</button>
+        </div>
+        <form id="create-announcement-form">
+            <div class="form-group">
+                <label for="announcement-title">Title</label>
+                <input type="text" id="announcement-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="announcement-content">Content</label>
+                <textarea id="announcement-content" name="content" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="announcement-category">Category</label>
+                <select id="announcement-category" name="category" required>
+                    <option value="academic">Academic</option>
+                    <option value="events">Events</option>
+                    <option value="deadlines">Deadlines</option>
+                    <option value="general">General</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="announcement-important" name="isImportant">
+                    <span class="checkmark"></span>
+                    Mark as Important
+                </label>
+            </div>
+            <button type="submit" class="auth-btn">Create Announcement</button>
+        </form>
+    </div>
+</div>
+
+<script src="Scripts/admin-features.js"></script>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animation on scroll
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.announcement-card');
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('is-visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+
+        // Filter functionality
+        document.getElementById('category-filter').addEventListener('change', function() {
+            const filterValue = this.value;
+            const announcements = document.querySelectorAll('.announcement-card');
+            
+            announcements.forEach(card => {
+                const category = card.querySelector('.category').classList[1];
+                
+                if (filterValue === 'all' || category === filterValue) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const user = getCurrentUser();
+    if (user && user.role === 'admin') {
+        document.getElementById('announcements-admin-section').style.display = 'block';
+    }
+});
+    </script>
+
+
+<script>
+// Simple modal functions
+window.showCreateEventModal = function() {
+    document.getElementById('createEventModal').style.display = 'block';
+}
+
+window.showCreateAnnouncementModal = function() {
+    document.getElementById('createAnnouncementModal').style.display = 'block';
+}
+
+window.closeModal = function(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+});
+</script>
+</body>
+</html>

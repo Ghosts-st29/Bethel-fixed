@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: bethel-department
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: bethel-db
+          property: connectionString

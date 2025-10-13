@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Student Board</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="Stylesheet/authUser.css">
+    <link rel="stylesheet" href="Stylesheet/Events.css">
+</head>
+<body>
+    <header class="header" id="header">
+         <!-- Replace this in your logo -->
+        <a href="#" class="logo">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <!-- Instead of: <i class="fas fa-graduation-cap"></i> -->
+            <span>Information Technology</span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="Announcements.html">Announcements</a>
+            <a href="Events.html" class="active">Events</a>
+            <a href="Archives.html">Archives</a>
+            <div class="auth-buttons">
+                <a href="login.html" class="auth-btn secondary">Login</a>
+                <a href="signup.html" class="auth-btn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="events-hero">
+        <div class="hero-content">
+            <h1>Campus Events & Activities</h1>
+            <p>Discover upcoming events, workshops, and activities to enhance your campus experience.</p>
+        </div>
+    </section>
+
+    <section class="events-container">
+        <div class="events-filters">
+            <div class="filter-group">
+                <label for="category-filter">Filter by:</label>
+                <select id="category-filter">
+                    <option value="all">All Events</option>
+                    <option value="academic">Academic</option>
+                    <option value="career">Career</option>
+                    <option value="social">Social</option>
+                    <option value="sports">Sports</option>
+                    <option value="workshops">Workshops</option>
+                </select>
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" id="grid-view">
+                    <i class="fas fa-th"></i> Grid View
+                </button>
+                <button class="view-btn" id="list-view">
+                    <i class="fas fa-list"></i> List View
+                </button>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Search events...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+          <section class="admin-actions-section" id="events-admin-section" style="display: none;">
+    <div class="container">
+        <div class="admin-actions">
+            <h3>Event Management</h3>
+            <button onclick="showCreateEventModal()" class="auth-btn">
+                <i class="fas fa-plus"></i> Add New Event
+            </button>
+        </div>
+    </div>
+</section>
+
+<div class="modal" id="createEventModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create New Event</h2>
+            <button class="close-modal" onclick="closeModal('createEventModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="create-event-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="event-title">Event Title</label>
+                    <input type="text" id="event-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-description">Description</label>
+                    <textarea id="event-description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="event-category">Category</label>
+                    <select id="event-category" name="category" required>
+                        <option value="academic">Academic</option>
+                        <option value="career">Career</option>
+                        <option value="social">Social</option>
+                        <option value="sports">Sports</option>
+                        <option value="workshops">Workshops</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-date">Date</label>
+                    <input type="date" id="event-date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-time">Time</label>
+                    <input type="time" id="event-time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-location">Location</label>
+                    <input type="text" id="event-location" name="location" required>
+                </div>
+                
+                <!-- NEW: Image Upload Section -->
+                <div class="form-group">
+                    <label for="event-image">Event Image</label>
+                    <div class="image-upload-container">
+                        <input type="file" id="event-image" name="image" accept="image/*" 
+                               onchange="previewImage(this)">
+                        <div class="image-preview" id="image-preview">
+                            <i class="fas fa-image"></i>
+                            <span>Click to upload event image</span>
+                        </div>
+                    </div>
+                    <small>Supported formats: JPG, PNG, GIF. Max size: 5MB</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="event-spots">Spots Available (0 for unlimited)</label>
+                    <input type="number" id="event-spots" name="spotsAvailable" value="0" min="0">
+                </div>
+                <button type="submit" class="auth-btn">Create Event</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+        <div class="events-grid" id="events-container">
+            <div class="event-card academic">
+                <div class="event-date">
+                    <span class="date-day">5</span>
+                    <span class="date-month">Sept</span>
+                </div>
+                <div class="event-image">
+                    <img src="Images/WhatsApp Image 2025-09-06 at 4.45.21 PM.jpeg" alt="Guest Lecture">
+                </div>
+                <div class="event-content">
+                    <span class="event-category academic">Academic</span>
+                    <h3 class="event-title">Best practices in Grant Writing</h3>
+                    <p class="event-excerpt">Hosted by Dr E.C. Amadi</p>
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 12:00 PM</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>CYB Research Center, SICT</span>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <div class="event-status">
+                            <span class="spots-remaining">42 spots left</span>
+                        </div>
+                        <a href="signup.html" class="event-btn">Register <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card career">
+                <div class="event-date">
+                    <span class="date-day">17</span>
+                    <span class="date-month">March</span>
+                </div>
+                <div class="event-image">
+                    <img src="Images/WhatsApp Image 2025-09-06 at 4.47.06 PM.jpeg" alt="Career Fair">
+                </div>
+                <div class="event-content">
+                    <span class="event-category career">Career</span>
+                    <h3 class="event-title">Asicts Week</h3>
+                    <p class="event-excerpt">Orientation/Cooperate Day, Sports/Jersey Day, etc.</p>
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>SICT</span>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <div class="event-status">
+                            <span class="spots-remaining">Ended</span>
+                        </div>
+                        <a href="signup.html" class="event-btn">Register <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card workshops">
+                <div class="event-date">
+                    <span class="date-day">20</span>
+                    <span class="date-month">OCT</span>
+                </div>
+                <div class="event-image">
+                    <img src="Images/WhatsApp Image 2025-09-06 at 4.47.07 PM.jpeg" alt="Study Skills Workshop">
+                </div>
+                <div class="event-content">
+                    <span class="event-category workshops">workshops</span>
+                    <h3 class="event-title">Tech Conference/Avalanche</h3>
+                    <p class="event-excerpt">Campus Tour.</p>
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2:00 PM - 4:00 PM</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Smat Auditorium</span>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <div class="event-status">
+                            <span class="spots-remaining">Fully booked</span>
+                        </div>
+                        <a href="#" class="event-btn disabled">Waitlist <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card social">
+                <div class="event-date">
+                    <span class="date-day">22</span>
+                    <span class="date-month">OCT</span>
+                </div>
+                <div class="event-image">
+                    <img src="Images/image 5.jpeg" alt="International Fooal">
+                </div>
+                <div class="event-content">
+                    <span class="event-category social">Social</span>
+                    <h3 class="event-title">Cloud & You</h3>
+                    <p class="event-excerpt">Aws Students Community Day.</p>
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>12:00 PM - 6:00 PM</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>FWT Auditorium</span>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <div class="event-status">
+                            <span class="spots-remaining">Open event</span>
+                        </div>
+                        <a href="signup.html" class="event-btn">Register now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card sports">
+                <div class="event-date">
+                    <span class="date-day">25</span>
+                    <span class="date-month">OCT</span>
+                </div>
+                <div class="event-image">
+                    <img src="Images/image 4.jpeg" alt="Basketball Tournament">
+                </div>
+                <div class="event-content">
+                    <span class="event-category sports">Hack4futo.</span>
+                    <h3 class="event-title">AWS Students Community Day.</h3>
+                    <p class="event-excerpt">Networking With Builders, Innovators & Future Leaders.</p>
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>1:00 PM - 5:00 PM</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>FWT Auditorium.</span>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <div class="event-status">
+                            <span class="spots-remaining">Free admission</span>
+                        </div>
+                        <a href="signup.html" class="event-btn">Register now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-card academic">
+                <div class="event-date">
+                    <span class="date-day">28</span>
+                    <span class="date-month">OCT</span> 
+                </div>
+                <div class="event-image">
+                    <img src="Images/image 6.jpeg" alt="Research Symposium">
+                </div>
+                <div class="event-content">
+                    <span class="event-category academic">Academic</span>
+                    <h3 class="event-title">The Illuminate Conference</h3>
+                    <p class="event-excerpt">A 1day Free Creative Event With Lots Of Prizes Over 100k To Be Won.</p>
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>9:00 AM - 3:00 PM</span>
+                        </div>
+                        <div class="event-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>PG Hall, Futo Roundabout.</span>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <div class="event-status">
+                            <span class="spots-remaining">Presentation slots available</span>
+                        </div>
+                        <a href="signup.html" class="event-btn">Register <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button class="pagination-btn active">1</button>
+            <button class="pagination-btn next">Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section class="upcoming-events">
+        <div class="container">
+            <h2 class="section-title">Upcoming Events This Week</h2>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="timeline-date">
+                        <span class="timeline-day">Mon</span>
+                        <span class="timeline-num">16</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Python Programming Workshop</h3>
+                        <p>Computer Lab 3 • 2:00 PM - 4:00 PM</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">
+                        <span class="timeline-day">Tue</span>
+                        <span class="timeline-num">17</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Study Abroad Information Session</h3>
+                        <p>International Office • 1:00 PM - 2:30 PM</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">
+                        <span class="timeline-day">Wed</span>
+                        <span class="timeline-num">18</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Career Fair Preparation Workshop</h3>
+                        <p>Career Center • 3:00 PM - 4:30 PM</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">
+                        <span class="timeline-day">Thu</span>
+                        <span class="timeline-num">19</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Movie Night: Documentary Screening</h3>
+                        <p>Student Lounge • 7:00 PM - 9:30 PM</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="timeline-date">
+                        <span class="timeline-day">Fri</span>
+                        <span class="timeline-num">20</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Yoga & Mindfulness Session</h3>
+                        <p>Recreation Center • 4:00 PM - 5:30 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Student Board</h3>
+                <p>The intelligent academic management platform designed to help students excel in their educational journey.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Features</h3>
+                <ul>
+                    <li><a href="#">GPA Tracking</a></li>
+                    <li><a href="#">Course Management</a></li>
+                    <li><a href="#">Assignment Planner</a></li>
+                    <li><a href="#">Smart Calendar</a></li>
+                    <li><a href="#">Progress Analytics</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Webinars</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Support Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Student Board. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Add this to ALL pages -->
+<script src="Scripts/auth.js"></script>
+
+<!-- Admin Modals -->
+<div class="modal" id="createEventModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create New Event</h2>
+            <button class="close-modal" onclick="closeModal('createEventModal')">&times;</button>
+        </div>
+        <form id="create-event-form">
+            <div class="form-group">
+                <label for="event-title">Event Title</label>
+                <input type="text" id="event-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="event-description">Description</label>
+                <textarea id="event-description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="event-category">Category</label>
+                <select id="event-category" name="category" required>
+                    <option value="academic">Academic</option>
+                    <option value="career">Career</option>
+                    <option value="social">Social</option>
+                    <option value="sports">Sports</option>
+                    <option value="workshops">Workshops</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="event-date">Date</label>
+                <input type="date" id="event-date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="event-time">Time</label>
+                <input type="time" id="event-time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label for="event-location">Location</label>
+                <input type="text" id="event-location" name="location" required>
+            </div>
+            <div class="form-group">
+                <label for="event-spots">Spots Available (0 for unlimited)</label>
+                <input type="number" id="event-spots" name="spotsAvailable" value="0" min="0">
+            </div>
+            <button type="submit" class="auth-btn">Create Event</button>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="createAnnouncementModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create New Announcement</h2>
+            <button class="close-modal" onclick="closeModal('createAnnouncementModal')">&times;</button>
+        </div>
+        <form id="create-announcement-form">
+            <div class="form-group">
+                <label for="announcement-title">Title</label>
+                <input type="text" id="announcement-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="announcement-content">Content</label>
+                <textarea id="announcement-content" name="content" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="announcement-category">Category</label>
+                <select id="announcement-category" name="category" required>
+                    <option value="academic">Academic</option>
+                    <option value="events">Events</option>
+                    <option value="deadlines">Deadlines</option>
+                    <option value="general">General</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="announcement-important" name="isImportant">
+                    <span class="checkmark"></span>
+                    Mark as Important
+                </label>
+            </div>
+            <button type="submit" class="auth-btn">Create Announcement</button>
+        </form>
+    </div>
+</div>
+
+<script src="Scripts/admin-features.js"></script>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animation on scroll
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.event-card, .timeline-event');
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('is-visible');
+                }
+            });
+        }
+
+        // Filter functionality
+        document.getElementById('category-filter').addEventListener('change', function() {
+            const filterValue = this.value;
+            const events = document.querySelectorAll('.event-card');
+            
+            events.forEach(card => {
+                const category = card.classList[1];
+                
+                if (filterValue === 'all' || category === filterValue) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // View toggle functionality
+        const gridViewBtn = document.getElementById('grid-view');
+        const listViewBtn = document.getElementById('list-view');
+        const eventsContainer = document.getElementById('events-container');
+        
+        gridViewBtn.addEventListener('click', function() {
+            eventsContainer.classList.remove('list-view');
+            eventsContainer.classList.add('grid-view');
+            gridViewBtn.classList.add('active');
+            listViewBtn.classList.remove('active');
+        });
+        
+        listViewBtn.addEventListener('click', function() {
+            eventsContainer.classList.remove('grid-view');
+            eventsContainer.classList.add('list-view');
+            listViewBtn.classList.add('active');
+            gridViewBtn.classList.remove('active');
+        });
+
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+
+        // Show admin section only for admins on events page
+document.addEventListener('DOMContentLoaded', function() {
+    const user = getCurrentUser();
+    if (user && user.role === 'admin') {
+        document.getElementById('events-admin-section').style.display = 'block';
+    }
+});
+    </script>
+
+    <script>
+// Simple modal functions
+window.showCreateEventModal = function() {
+    document.getElementById('createEventModal').style.display = 'block';
+}
+
+window.showCreateAnnouncementModal = function() {
+    document.getElementById('createAnnouncementModal').style.display = 'block';
+}
+
+window.closeModal = function(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+});
+</script>
+
+
+<script>
+// Image preview functionality
+function previewImage(input) {
+    const preview = document.getElementById('image-preview');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            preview.classList.add('has-image');
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.innerHTML = '<i class="fas fa-image"></i><span>Click to upload event image</span>';
+        preview.classList.remove('has-image');
+    }
+}
+
+// Update the form submission to handle file uploads
+document.addEventListener('DOMContentLoaded', function() {
+    const createEventForm = document.getElementById('create-event-form');
+    
+    if (createEventForm) {
+        createEventForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('Create event form submitted with image');
+            
+            const formData = new FormData(this); // Use FormData to handle files
+            const token = localStorage.getItem('token');
+            
+            try {
+                const response = await fetch('/api/events', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                        // Don't set Content-Type - let browser set it with boundary
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Event created successfully!');
+                    closeModal('createEventModal');
+                    this.reset();
+                    // Reset image preview
+                    document.getElementById('image-preview').innerHTML = 
+                        '<i class="fas fa-image"></i><span>Click to upload event image</span>';
+                    document.getElementById('image-preview').classList.remove('has-image');
+                    window.location.reload();
+                } else {
+                    alert('Error creating event: ' + result.message);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+    }
+});
+</script>
+    
+</body>
+</html>
